@@ -16,15 +16,15 @@ interface Props {
 export const Card = ({ data }: Props) => {
     return (
         <div className={cn(styles.base, { [styles.selected]: data.selected })}>
-            <div className=" w-20 h-20 mx-5 mt-3 mb-5 ">
+            <div className=" w-20 md:w-36 md:h-36 h-20 mx-5 mt-3 mb-5 md:mb-6 ">
                 <Image
-                    width="100%"
-                    height="100%"
+                    width="200px"
+                    height="200px"
                     className="rounded-full"
                     src={data.src}
                 />
             </div>
-            <div className="text-white font-light mb-4 text-center ">
+            <div className="text-white font-light md:text-2xl mb-4 md:mb-6 text-center ">
                 {data.name}
             </div>
         </div>
