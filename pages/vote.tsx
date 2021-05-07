@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Container, Indicator, BottomButton } from "@components";
 import { ArrowRight } from "@components/icons";
+import Link from "next/link";
 
 interface option {
     name: string;
@@ -75,6 +76,9 @@ const Main = () => {
                     ))}
                 </ul>
             </div>
+            <Link href="/success">
+                <a>Success</a>
+            </Link>
             <BottomButton
                 className="bottom-0 right-0 mb-10 mr-5 fixed w-16 h-16 "
                 appearance={

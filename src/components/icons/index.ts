@@ -1,2 +1,3 @@
 import ArrowRight from "./ArrowRight";
-export { ArrowRight };
+import Check from "./Check";
+export { ArrowRight, Check };
