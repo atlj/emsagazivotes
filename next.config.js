@@ -14,7 +14,7 @@ const localeSubpaths = {
 const config = {
     rewrites: async () => nextI18NextRewrites(localeSubpaths),
     images: {
-        domains: ["homepages.cae.wisc.edu"],
+        domains: [],
     },
     publicRuntimeConfig: {
         localeSubpaths,
