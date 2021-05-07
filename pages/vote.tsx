@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Container, Indicator } from "@components";
+import { Card, Container, Indicator, BottomButton } from "@components";
+import { ArrowRight } from "@components/icons";
 
 interface option {
     name: string;
@@ -20,7 +21,7 @@ const ListCard = ({ name, icon, selected, onClick }) => (
 
 const Main = () => {
     const [pageData, setpageData] = React.useState<pageData>({
-        amount: 2,
+        amount: 1,
         title: "Test",
         options: [
             { icon: "/res/person-icon.png", name: "Option1" },
@@ -74,6 +75,18 @@ const Main = () => {
                     ))}
                 </ul>
             </div>
+            <BottomButton
+                className="bottom-0 right-0 mb-10 mr-5 fixed w-16 h-16 "
+                appearance={
+                    pageData.amount === selected.length ? "visible" : "hidden"
+                }
+                onClick={() => {
+                    setSelected([]);
+                    //TODO MAKE BOTTOM BUTTON
+                }}
+            >
+                <ArrowRight />
+            </BottomButton>
         </Container>
     );
 };

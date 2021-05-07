@@ -1,0 +1,9 @@
+.visible {
+    @apply scale-100 transform-gpu;
+    transition: 150ms;
+}
+
+.hidden {
+    @apply scale-0 transform-gpu;
+    transition: 150ms;
+}
