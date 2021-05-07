@@ -1,45 +1,78 @@
 import React from "react";
 import { Card, Container, Indicator } from "@components";
 
+interface option {
+    name: string;
+    icon: string;
+}
+
+interface pageData {
+    amount: number;
+    title: string;
+    options: Array<option>;
+}
+
+const ListCard = ({ name, icon, selected, onClick }) => (
+    <li onClick={onClick}>
+        <Card data={{ name, src: icon, selected }} />
+    </li>
+);
+
 const Main = () => {
+    const [pageData, setpageData] = React.useState<pageData>({
+        amount: 2,
+        title: "Test",
+        options: [
+            { icon: "/res/person-icon.png", name: "Option1" },
+            { icon: "/res/person-icon.png", name: "Option2" },
+            { icon: "/res/person-icon.png", name: "Option3" },
+        ],
+    }); //TODO THIS WILL COME FROM BACKEND
+    const [selected, setSelected] = React.useState<Array<number>>([]);
     return (
-        //TODO ADD UL LI
         <Container>
             <Indicator
-                className="w-5/6 self-center mt-4 "
+                className="w-5/6 md:w-5/12 self-center mt-4 "
                 count={5}
                 index={1}
             />
-            <h1 className="text-white text-center text-2xl container my-16  ">
-                Bilimsel Birim Sorumlusu
+            <h1 className="text-white text-center text-2xl self-center container my-16 md:text-4xl  ">
+                {pageData.title}
             </h1>
-            <div className="flex justify-center container ">
-                <div className=" grid grid-flow-row grid-cols-2  gap-x-8 gap-y-7 md:grid-cols-4 ">
-                    <Card
-                        data={{
-                            selected: false,
-                            src:
-                                "https://homepages.cae.wisc.edu/~ece533/images/baboon.png",
-                            name: "İlk Aday",
-                        }}
-                    ></Card>
-                    <Card
-                        data={{
-                            selected: false,
-                            src:
-                                "https://homepages.cae.wisc.edu/~ece533/images/watch.png",
-                            name: "İkinci Aday",
-                        }}
-                    ></Card>
-                    <Card
-                        data={{
-                            selected: false,
-                            src:
-                                "https://homepages.cae.wisc.edu/~ece533/images/cat.png",
-                            name: "Üçüncü Aday",
-                        }}
-                    ></Card>
-                </div>
+            <div className="flex justify-center self-center container ">
+                <ul className=" grid grid-flow-row grid-cols-2  gap-x-8 gap-y-7 md:grid-cols-4 ">
+                    {pageData.options.map((data, index) => (
+                        <ListCard
+                            onClick={() => {
+                                if (pageData.amount === 1) {
+                                    if (selected.indexOf(index) > -1) {
+                                        setSelected([]);
+                                    } else {
+                                        setSelected([index]);
+                                    }
+                                } else {
+                                    if (selected.indexOf(index) > -1) {
+                                        let _selected = selected.slice();
+                                        _selected.splice(
+                                            _selected.indexOf(index),
+                                            1,
+                                        );
+                                        setSelected(_selected);
+                                    } else {
+                                        if (selected.length < pageData.amount) {
+                                            setSelected([...selected, index]);
+                                        }
+                                    }
+                                }
+                            }}
+                            icon={data.icon}
+                            name={data.name}
+                            selected={
+                                selected.indexOf(index) > -1 ? true : false
+                            }
+                        />
+                    ))}
+                </ul>
             </div>
         </Container>
     );

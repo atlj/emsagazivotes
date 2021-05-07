@@ -1,8 +1,8 @@
 .base {
     transition: 150ms;
-    @apply bg-dark-800 select-none flex flex-col rounded-lg items-center hover:transform-gpu hover:scale-110 hover:ring-2 hover:ring-accent;
+    @apply bg-dark-800 select-none flex flex-col rounded-lg md:rounded-xl items-center;
 }
 
 .selected {
-    @apply hover:transform-gpu hover:scale-110 hover:ring-2 hover:ring-accent;
+    @apply transform-gpu scale-110 ring-2 ring-accent;
 }
