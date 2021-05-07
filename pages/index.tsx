@@ -6,6 +6,7 @@ const Home: React.FC = () => {
     return (
         <Container>
             <div></div>
+            <a href="/vote">vote</a>
         </Container>
     );
 };
