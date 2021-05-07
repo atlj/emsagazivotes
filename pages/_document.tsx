@@ -1,4 +1,11 @@
-import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import Document, {
+    DocumentContext,
+    Head,
+    Html,
+    Main,
+    NextScript,
+    DocumentInitialProps,
+} from "next/document";
 
 class CustomDocument extends Document {
     static async getInitialProps(
@@ -7,6 +14,17 @@ class CustomDocument extends Document {
         const initialProps = await Document.getInitialProps(ctx);
 
         return initialProps;
+    }
+    render() {
+        return (
+            <Html>
+                <Head />
+                <body className="bg-dark-900 ">
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
     }
 }
 
