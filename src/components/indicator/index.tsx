@@ -27,7 +27,7 @@ export const Indicator = ({
     return (
         <div className={cn("flex", className)}>
             <ul className={cn(styles.indicatorGrid, gridclassName)}>
-                {[...Array(count)].map((data, itemIndex) => (
+                {[...Array(count)].map((_, itemIndex) => (
                     <IndicatorItem
                         key={itemIndex}
                         itemIndex={itemIndex}
@@ -38,19 +38,3 @@ export const Indicator = ({
         </div>
     );
 };
-
-interface option {
-    name: string;
-    icon: string;
-}
-
-interface page {
-    title: string;
-    options: Array<option>;
-}
-
-interface data {
-    name: string;
-    icon: string;
-    pages: Array<page>;
-}
