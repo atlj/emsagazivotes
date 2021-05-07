@@ -1,0 +1,12 @@
+.indicatorItem {
+    @apply h-1 flex bg-dark-800 rounded;
+}
+
+.indicatorItemSelected {
+    @apply bg-accent;
+}
+
+.indicatorGrid {
+    @apply grid grid-rows-1 grid-flow-col container;
+    column-gap: 2%;
+}
