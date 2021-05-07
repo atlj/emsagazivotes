@@ -3,19 +3,106 @@ import { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
 import "@styles/global.css";
 import { appWithTranslation } from "@i18n";
-import Head from "next/head";
+import { DataContext } from "@data/datacontext";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     return (
         <>
-            <Head>
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
-                    rel="stylesheet"
-                />
-            </Head>
-            <Component {...pageProps} />
+            <DataContext.Provider
+                value={{
+                    //TODO MAKE THIS DATA COME FROM BACKEND
+                    icon: "/res/person-icon.png",
+                    name: "test poll",
+                    pages: [
+                        {
+                            title: "this is for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                        {
+                            title: "this is not for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                                {
+                                    name: "test 2",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                        {
+                            title: "this is for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                        {
+                            title: "this is for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                        {
+                            title: "this is for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                        {
+                            title: "this is for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                        {
+                            title: "this is for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                        {
+                            title: "this is for testing",
+                            amount: 1,
+                            options: [
+                                {
+                                    name: "test 1",
+                                    icon: "/res/person-icon.png",
+                                },
+                            ],
+                        },
+                    ],
+                }}
+            >
+                <Component {...pageProps} />
+            </DataContext.Provider>
         </>
     );
 }
