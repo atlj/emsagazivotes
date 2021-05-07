@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import { Container } from "@components";
 
@@ -6,7 +7,9 @@ const Home: React.FC = () => {
     return (
         <Container>
             <div></div>
-            <a href="/vote">vote</a>
+            <Link href="/vote">
+                <a>vote</a>
+            </Link>
         </Container>
     );
 };
