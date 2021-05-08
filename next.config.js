@@ -14,7 +14,7 @@ const localeSubpaths = {
 const config = {
     rewrites: async () => nextI18NextRewrites(localeSubpaths),
     images: {
-        domains: [],
+        domains: ["firebasestorage.googleapis.com"],
     },
     publicRuntimeConfig: {
         localeSubpaths,
