@@ -114,7 +114,7 @@ const Main = () => {
                         count={databaseData.pages.length}
                         index={pageIndex}
                     />
-                    <h1 className="text-white text-center text-2xl self-center container my-16 md:text-4xl  ">
+                    <h1 className="text-white text-center text-2xl self-center container my-16 px-2 md:px-8 md:text-4xl  ">
                         {pageData.title}
                     </h1>
                     <div className="flex justify-center self-center container ">

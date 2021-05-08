@@ -24,7 +24,7 @@ export const Card = ({ data }: Props) => {
                     src={data.src}
                 />
             </div>
-            <div className="text-white font-light md:text-2xl mb-4 md:mb-6 text-center ">
+            <div className="text-white font-light md:text-2xl  mb-4 md:mb-6 w-28 md:w-40 text-center ">
                 {data.name}
             </div>
         </div>
