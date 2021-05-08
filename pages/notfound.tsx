@@ -6,7 +6,7 @@ const Main = () => {
     return (
         <Container className="text-center justify-center font-light ">
             <Link href="/">
-                <a className="text-3xl">Böyle bir form elimizde yok 😔</a>
+                <a className="text-3xl">Böyle bir oylama elimizde yok 😔</a>
             </Link>
         </Container>
     );
