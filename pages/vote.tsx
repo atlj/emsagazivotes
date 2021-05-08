@@ -101,7 +101,7 @@ const Main = () => {
                     </ul>
                 </div>
                 <BottomButton
-                    className="bottom-0 right-0 mb-10 mr-5 fixed w-16 h-16 "
+                    className="bottom-0 right-0 mb-10 mr-5 md:mr-24 md:mb-20 fixed w-16 h-16 "
                     appearance={
                         pageData.amount === selected.length
                             ? "visible"

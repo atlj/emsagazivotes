@@ -18,7 +18,7 @@ export const BottomButton = ({
         <div
             onClick={onClick}
             className={cn(
-                "rounded-full bg-dark-800 w-12 h-12 flex items-center justify-center ",
+                "rounded-full bg-dark-800 w-12 h-12 md:w-24 md:h-24  flex items-center justify-center ",
                 className,
                 {
                     [styles.visible]: appearance === "visible",
