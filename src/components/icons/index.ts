@@ -1,3 +1,4 @@
 import ArrowRight from "./ArrowRight";
 import Check from "./Check";
-export { ArrowRight, Check };
+import Google from "./Google";
+export { ArrowRight, Check, Google };
