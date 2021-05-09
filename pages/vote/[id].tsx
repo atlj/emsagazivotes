@@ -7,18 +7,30 @@ import firebase, { useAuth } from "@data/firebase";
 interface option {
     name: string;
     icon: string;
+    propName?: string;
 }
-
 interface pageData {
     amount: number;
     title: string;
     options: Array<option>;
 }
 
+interface repeat {
+    [prop: string]: number;
+}
+interface rules {
+    repeat: repeat;
+}
+
 interface voteData {
     name: string;
     icon: string;
+    rules?: rules;
     pages: Array<pageData>;
+}
+
+interface interfaceRepeats {
+    [propName: string]: number;
 }
 
 const ListCard = ({ name, icon, selected, onClick }) => (
@@ -30,12 +42,34 @@ const ListCard = ({ name, icon, selected, onClick }) => (
 const Main = () => {
     const router = useRouter();
     const authcontext = useAuth();
+    const [repeats, setRepeats] = React.useState<interfaceRepeats>({});
     const [databaseData, setdatabaseData] = React.useState<voteData | false>(
         false,
     );
 
     const [answers, setAnswers] = React.useState<Array<Array<number>>>([]);
     const [pageIndex, setpageIndex] = React.useState<number>(0);
+
+    const detectRepeats = (data: option, index: number): boolean => {
+        if (databaseData !== false) {
+            if (data.propName !== undefined) {
+                if (databaseData.rules?.repeat !== undefined) {
+                    if (
+                        data.propName in databaseData.rules.repeat &&
+                        data.propName in repeats
+                    ) {
+                        if (
+                            databaseData.rules.repeat[data.propName] ===
+                            repeats[data.propName]
+                        ) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    };
 
     React.useEffect(() => {
         if (authcontext.auth !== false) {
@@ -123,29 +157,44 @@ const Main = () => {
                                 <ListCard
                                     key={index}
                                     onClick={() => {
-                                        if (pageData.amount === 1) {
-                                            if (selected.indexOf(index) > -1) {
-                                                setSelected([]);
-                                            } else {
-                                                setSelected([index]);
-                                            }
-                                        } else {
-                                            if (selected.indexOf(index) > -1) {
-                                                let _selected = selected.slice();
-                                                _selected.splice(
-                                                    _selected.indexOf(index),
-                                                    1,
-                                                );
-                                                setSelected(_selected);
+                                        let selectable = true;
+                                        if (selected !== []) {
+                                            selectable = detectRepeats(
+                                                data,
+                                                index,
+                                            );
+                                        }
+                                        if (selectable === true) {
+                                            if (pageData.amount === 1) {
+                                                if (
+                                                    selected.indexOf(index) > -1
+                                                ) {
+                                                    setSelected([]);
+                                                } else {
+                                                    setSelected([index]);
+                                                }
                                             } else {
                                                 if (
-                                                    selected.length <
-                                                    pageData.amount
+                                                    selected.indexOf(index) > -1
                                                 ) {
-                                                    setSelected([
-                                                        ...selected,
-                                                        index,
-                                                    ]);
+                                                    let _selected = selected.slice();
+                                                    _selected.splice(
+                                                        _selected.indexOf(
+                                                            index,
+                                                        ),
+                                                        1,
+                                                    );
+                                                    setSelected(_selected);
+                                                } else {
+                                                    if (
+                                                        selected.length <
+                                                        pageData.amount
+                                                    ) {
+                                                        setSelected([
+                                                            ...selected,
+                                                            index,
+                                                        ]);
+                                                    }
                                                 }
                                             }
                                         }
@@ -169,6 +218,18 @@ const Main = () => {
                                 : "hidden"
                         }
                         onClick={() => {
+                            let tempRepeats: interfaceRepeats = { ...repeats };
+                            selected.forEach((element) => {
+                                let name = pageData.options[element].propName;
+                                if (name !== undefined) {
+                                    if (tempRepeats[name] !== undefined) {
+                                        tempRepeats[name] += 1;
+                                    } else {
+                                        tempRepeats[name] = 1;
+                                    }
+                                }
+                            });
+                            setRepeats(tempRepeats);
                             setpageIndex(pageIndex + 1);
                         }}
                     >
