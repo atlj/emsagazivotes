@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Container, Indicator, BottomButton, Loading } from "@components";
-import { ArrowRight } from "@components/icons";
+import { ArrowRight, ArrowLeft } from "@components/icons";
 import { useRouter } from "next/router";
 import firebase, { useAuth } from "@data/firebase";
 
@@ -42,11 +42,16 @@ const ListCard = ({ name, icon, selected, onClick }) => (
 const Main = () => {
     const router = useRouter();
     const authcontext = useAuth();
+    const [lastRepeats, setlastRepeats] = React.useState<
+        Array<interfaceRepeats>
+    >([]);
     const [repeats, setRepeats] = React.useState<interfaceRepeats>({});
     const [databaseData, setdatabaseData] = React.useState<voteData | false>(
         false,
     );
-
+    const [lastAnswers, setlastAnswers] = React.useState<Array<Array<number>>>(
+        [],
+    );
     const [answers, setAnswers] = React.useState<Array<Array<number>>>([]);
     const [pageIndex, setpageIndex] = React.useState<number>(0);
 
@@ -129,7 +134,12 @@ const Main = () => {
 
     React.useEffect(() => {
         if (pageIndex > 0) {
-            setAnswers([...answers, selected]);
+            let tempanswers = [...answers];
+            if (tempanswers.length == pageIndex) {
+                tempanswers.pop();
+            }
+            setlastAnswers(tempanswers);
+            setAnswers([...tempanswers, selected]);
             setSelected([]);
         }
     }, [pageIndex]);
@@ -211,6 +221,36 @@ const Main = () => {
                         </ul>
                     </div>
                     <BottomButton
+                        appearance={pageIndex === 0 ? "hidden" : "visible"}
+                        onClick={() => {
+                            console.log("clicked");
+
+                            let tempAnswers = [...answers];
+                            console.log("answers: " + JSON.stringify(answers));
+                            if (answers.length >= pageIndex + 1) {
+                                tempAnswers.pop();
+                            }
+                            setSelected(tempAnswers[tempAnswers.length - 1]);
+                            console.log(
+                                "new selected: " +
+                                    JSON.stringify(
+                                        tempAnswers[tempAnswers.length - 1],
+                                    ),
+                            );
+
+                            let templastRepeats = [...lastRepeats];
+                            templastRepeats.pop();
+                            setlastRepeats(templastRepeats);
+                            setRepeats(
+                                templastRepeats[templastRepeats.length - 1],
+                            );
+                            setpageIndex(pageIndex - 1);
+                        }}
+                        className="bottom-0 left-0 mb-10 ml-5 md:ml-24 md:mb-20 fixed w-16 h-16 "
+                    >
+                        <ArrowLeft />
+                    </BottomButton>
+                    <BottomButton
                         className="bottom-0 right-0 mb-10 mr-5 md:mr-24 md:mb-20 fixed w-16 h-16 "
                         appearance={
                             pageData.amount === selected.length
@@ -218,6 +258,7 @@ const Main = () => {
                                 : "hidden"
                         }
                         onClick={() => {
+                            setAnswers(lastAnswers);
                             let tempRepeats: interfaceRepeats = { ...repeats };
                             selected.forEach((element) => {
                                 let name = pageData.options[element].propName;
@@ -229,6 +270,15 @@ const Main = () => {
                                     }
                                 }
                             });
+                            setlastRepeats([...lastRepeats, tempRepeats]);
+                            console.log(
+                                "last repeats: " +
+                                    JSON.stringify([
+                                        ...lastRepeats,
+                                        tempRepeats,
+                                    ]),
+                            );
+
                             setRepeats(tempRepeats);
                             setpageIndex(pageIndex + 1);
                         }}
