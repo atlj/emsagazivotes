@@ -18,8 +18,9 @@ export const Card = ({ data }: Props) => {
         <div className={cn(styles.base, { [styles.selected]: data.selected })}>
             <div className=" w-20 md:w-36 md:h-36 h-20 mx-5 mt-3 mb-5 md:mb-6 ">
                 <Image
-                    width="512px"
-                    height="512px"
+                    priority={true}
+                    width="300px"
+                    height="300px"
                     className="rounded-full"
                     src={data.src}
                 />
